@@ -226,9 +226,9 @@ if __name__ == "__main__":
 
     print("---------y_train----------")
     print(y_train)
-    print(len(y_train))
-    print(len(y_train[0]))
-
+    print(len(y_train))  # 7352
+    print(len(y_train[0]))  # 6
+    exit()
 
     # -----------------------------------
     # step2: define parameters for model
