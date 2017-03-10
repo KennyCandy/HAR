@@ -173,7 +173,7 @@ if __name__ == "__main__":
             self.learning_rate = 0.0025
             self.lambda_loss_amount = 0.0015
             self.training_epochs = 300
-            self.batch_size = 1000
+            self.batch_size = 700
 
             # LSTM structure
             self.n_inputs = len(X_train[0][0])  # Features count is of 9: three 3D sensors features over time
@@ -273,8 +273,8 @@ if __name__ == "__main__":
     optimizer = tf.train.AdamOptimizer(
         learning_rate=config.learning_rate).minimize(cost)
 
-    correct_pred = tf.equal(tf.argmax(pred_Y, 1), tf.argmax(Y, 1))
-    accuracy = tf.reduce_mean(tf.cast(correct_pred, dtype=tf.float32))
+    correct_prediction = tf.equal(tf.argmax(pred_Y, 1), tf.argmax(Y, 1))
+    accuracy = tf.reduce_mean(tf.cast(correct_prediction, dtype=tf.float32))
 
     # --------------------------------------------
     # step4: Hooray, now train the neural network
