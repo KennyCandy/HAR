@@ -213,7 +213,7 @@ if __name__ == "__main__":
     print(Y)
     Y = tf.reshape(Y, shape=[-1, 6])
     print(Y)
-    
+
     # [START]ADD CNN
     # Weight Initialization
     def weight_variable(shape):
@@ -249,7 +249,8 @@ if __name__ == "__main__":
     # with the second and third dimensions corresponding to image width and height (28x28)
     # and the final dimension corresponding to the number of color channels(1 vi luc dau vo)
     # tham so dau tien la (-1) de doi cac chieu con lai vao
-    x_image = tf.reshape(x, shape=[-1, 28, 28, 1])
+    x_image = tf.reshape(x, shape=[-1, 64, 18, 1])
+
 
     # We then convolve x_image with the weight tensor,
     # add the bias,
@@ -258,6 +259,36 @@ if __name__ == "__main__":
 
     h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
     h_pool1 = max_pool_2x2(h_conv1)
+
+    # Second Convolutional Layer
+    # In order to build a deep network, we stack several layers of this type. The second layer will have 64 features for each 5x5 patch.
+
+    W_conv2 = weight_variable([5, 5, 32, 64])
+    b_conv2 = weight_variable([64])
+    h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
+    # h_pool2 = max_pool_2x2(h_conv2)
+    h_pool2 = h_conv2
+
+    # Now that the image size has been reduced to 7x7
+    # we add a fully-connected layer with 1024 neurons to allow processing on the entire image.
+    # We reshape the tensor from the pooling layer into a batch of vectors,
+    #  multiply by a weight matrix,
+    # add a bias,
+    # and apply a ReLU.
+
+    W_fc1 = weight_variable([32 * 9 * 64, 1024])
+    b_fc1 = bias_varibale([1024])
+
+    h_pool2_flat = tf.reshape(h_pool2, [-1, 32 * 9 * 64])
+    h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
+    ###
+    # Readout Layer
+    # Finally, we add a layer, just like for the one layer softmax regression above.
+
+    W_fc2 = weight_variable([1024, 6])
+    b_fc2 = bias_varibale([6])
+
+    y_conv = tf.matmul(h_fc1, W_fc2) + b_fc2
 
     # [END]ADD CNN 
 
@@ -310,13 +341,13 @@ if __name__ == "__main__":
     pred_Y = LSTM_Network(X, config)
     print(pred_Y)
 
-    # Loss,optimizer,evaluation
+    # Loss,train_step,evaluation
     l2 = config.lambda_loss_amount * \
          sum(tf.nn.l2_loss(tf_var) for tf_var in tf.trainable_variables())
     # Softmax loss and L2
     cost = tf.reduce_mean(
         tf.nn.softmax_cross_entropy_with_logits(pred_Y, Y)) + l2
-    optimizer = tf.train.AdamOptimizer(
+    train_step = tf.train.AdamOptimizer(
         learning_rate=config.learning_rate).minimize(cost)
 
     correct_prediction = tf.equal(tf.argmax(pred_Y, 1), tf.argmax(Y, 1))
@@ -338,7 +369,7 @@ if __name__ == "__main__":
             print(start)
             print(end)
 
-            sess.run(optimizer, feed_dict={X: X_train[start:end],
+            sess.run(train_step, feed_dict={X: X_train[start:end],
                                            Y: y_train[start:end]})
 
         # Test completely at every epoch: calculate accuracy
