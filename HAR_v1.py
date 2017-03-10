@@ -150,8 +150,8 @@ if __name__ == "__main__":
     # print(y_train)
     print(len(y_train))  # 7352
     print(len(y_train[0]))  # 6
-
-
+    
+                           
     # exit()
 
     # -----------------------------------
@@ -213,7 +213,53 @@ if __name__ == "__main__":
     print(Y)
     Y = tf.reshape(Y, shape=[-1, 6])
     print(Y)
+    
+    # [START]ADD CNN
+    # Weight Initialization
+    def weight_variable(shape):
+        # tra ve 1 gia tri random theo thuat toan truncated_ normal
+        initial = tf.truncated_normal(shape, mean=0.0, stddev=0.1, dtype=tf.float32)
+        return tf.Variable(initial)
 
+
+    def bias_varibale(shape):
+        initial = tf.constant(0.1, shape=shape, name='Bias')
+        return tf.Variable(initial)
+
+
+    # Convolution and Pooling
+    def conv2d(x, W):
+        # Must have `strides[0] = strides[3] = 1 `.
+        # For the most common case of the same horizontal and vertices strides, `strides = [1, stride, stride, 1] `.
+        return tf.nn.conv2d(input=x, filter=W, strides=[1, 1, 1, 1], padding='SAME', name='conv_2d')
+
+
+    def max_pool_2x2(x):
+        return tf.nn.max_pool(value=x, ksize=[1, 2, 2, 1],
+                            strides=[1, 2, 2, 1], padding='SAME', name='max_pool')       
+
+    # Firt convolutional layer
+
+    # The first two dimensions are the patch size
+    # the next is the number of input channels, (chi co 1 khung mau di vo)
+    # and the last is the number of output channels ( R,G,B,...)->filters bank
+    W_conv1 = weight_variable([5, 5, 1, 32])
+    b_conv1 = bias_varibale([32])  
+    # To apply the layer, we first reshape x to a 4d tensor
+    # with the second and third dimensions corresponding to image width and height (28x28)
+    # and the final dimension corresponding to the number of color channels(1 vi luc dau vo)
+    # tham so dau tien la (-1) de doi cac chieu con lai vao
+    x_image = tf.reshape(x, shape=[-1, 28, 28, 1])
+
+    # We then convolve x_image with the weight tensor,
+    # add the bias,
+    # apply the ReLU function,
+    # and finally max pool. -> hidden layer
+
+    h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
+    h_pool1 = max_pool_2x2(h_conv1)
+
+    # [END]ADD CNN 
 
     def LSTM_Network(feature_mat, config):
         """model a LSTM Network,
