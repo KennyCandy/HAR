@@ -49,7 +49,6 @@ if __name__ == "__main__":
     TRAIN = "train/"
     TEST = "test/"
 
-
     # Load "X" (the neural network's training and testing inputs)
     def load_X(X_signals_paths):
         X_signals = []
@@ -82,15 +81,14 @@ if __name__ == "__main__":
 
         return np.transpose(np.array(X_signals), (1, 2, 0))
 
-
     X_train_signals_paths = [
         DATASET_PATH + TRAIN + "Inertial Signals/" + signal + "train.txt" for signal in INPUT_SIGNAL_TYPES
         ]
     X_test_signals_paths = [
         DATASET_PATH + TEST + "Inertial Signals/" + signal + "test.txt" for signal in INPUT_SIGNAL_TYPES
         ]
-    X_train = load_X(X_train_signals_paths)
-    X_test = load_X(X_test_signals_paths)
+    X_train = load_X(X_train_signals_paths)  # [7352, 128, 9]
+    X_test = load_X(X_test_signals_paths)    # [7352, 128, 9]
 
     # print(X_train)
     print(len(X_train))  # 7352
@@ -102,17 +100,17 @@ if __name__ == "__main__":
     X_train = np.reshape(X_train, [-1, 64, 18])
     X_test = np.reshape(X_test, [-1, 64, 18])
 
+    print("-----------------X_train---------------")
     # print(X_train)
     print(len(X_train))  # 7352
-    print(len(X_train[0]))  # 128
-    print(len(X_train[0][0]))  # 9
+    print(len(X_train[0]))  # 64
+    print(len(X_train[0][0]))  # 18
 
     print(type(X_train))
     # exit()
 
     y_train_path = DATASET_PATH + TRAIN + "y_train.txt"
     y_test_path = DATASET_PATH + TEST + "y_test.txt"
-
 
     def one_hot(label):
         """convert label from dense to one hot
@@ -126,7 +124,6 @@ if __name__ == "__main__":
         # because max is 5, and we will create 6 columns
         n_values = np.max(new_label) + 1
         return np.eye(n_values)[np.array(new_label, dtype=np.int32)]
-
 
     # Load "y" (the neural network's training and testing outputs)
     def load_y(y_path):
@@ -150,8 +147,7 @@ if __name__ == "__main__":
     # print(y_train)
     print(len(y_train))  # 7352
     print(len(y_train[0]))  # 6
-    
-                           
+
     # exit()
 
     # -----------------------------------
@@ -169,7 +165,7 @@ if __name__ == "__main__":
             self.test_data_count = len(X_test)  # 2947 testing series
             self.n_steps = len(X_train[0])  # 128 time_steps per series
 
-            # Trainging
+            # Training
             self.learning_rate = 0.0025
             self.lambda_loss_amount = 0.0015
             self.training_epochs = 300
@@ -180,14 +176,13 @@ if __name__ == "__main__":
             self.n_hidden = 32  # nb of neurons inside the neural network
             self.n_classes = 6  # Final output classes
             self.W = {
-                'hidden': tf.Variable(tf.random_normal([self.n_inputs, self.n_hidden])),
-                'output': tf.Variable(tf.random_normal([self.n_hidden, self.n_classes]))
+                'hidden': tf.Variable(tf.random_normal([self.n_inputs, self.n_hidden])),  # [9, 32]
+                'output': tf.Variable(tf.random_normal([self.n_hidden, self.n_classes]))  # [32, 6]
             }
             self.biases = {
-                'hidden': tf.Variable(tf.random_normal([self.n_hidden], mean=1.0)),
-                'output': tf.Variable(tf.random_normal([self.n_classes]))
+                'hidden': tf.Variable(tf.random_normal([self.n_hidden], mean=1.0)),  # [32]
+                'output': tf.Variable(tf.random_normal([self.n_classes]))  # [6]
             }
-
 
     config = Config(X_train, X_test)
     # print("Some useful info to get an insight on dataset's shape and normalisation:")
@@ -214,84 +209,6 @@ if __name__ == "__main__":
     Y = tf.reshape(Y, shape=[-1, 6])
     print(Y)
 
-    # [START]ADD CNN
-    # Weight Initialization
-    def weight_variable(shape):
-        # tra ve 1 gia tri random theo thuat toan truncated_ normal
-        initial = tf.truncated_normal(shape, mean=0.0, stddev=0.1, dtype=tf.float32)
-        return tf.Variable(initial)
-
-
-    def bias_varibale(shape):
-        initial = tf.constant(0.1, shape=shape, name='Bias')
-        return tf.Variable(initial)
-
-
-    # Convolution and Pooling
-    def conv2d(x, W):
-        # Must have `strides[0] = strides[3] = 1 `.
-        # For the most common case of the same horizontal and vertices strides, `strides = [1, stride, stride, 1] `.
-        return tf.nn.conv2d(input=x, filter=W, strides=[1, 1, 1, 1], padding='SAME', name='conv_2d')
-
-
-    def max_pool_2x2(x):
-        return tf.nn.max_pool(value=x, ksize=[1, 2, 2, 1],
-                            strides=[1, 2, 2, 1], padding='SAME', name='max_pool')       
-
-    # Firt convolutional layer
-
-    # The first two dimensions are the patch size
-    # the next is the number of input channels, (chi co 1 khung mau di vo)
-    # and the last is the number of output channels ( R,G,B,...)->filters bank
-    W_conv1 = weight_variable([5, 5, 1, 32])
-    b_conv1 = bias_varibale([32])  
-    # To apply the layer, we first reshape x to a 4d tensor
-    # with the second and third dimensions corresponding to image width and height (28x28)
-    # and the final dimension corresponding to the number of color channels(1 vi luc dau vo)
-    # tham so dau tien la (-1) de doi cac chieu con lai vao
-    x_image = tf.reshape(x, shape=[-1, 64, 18, 1])
-
-
-    # We then convolve x_image with the weight tensor,
-    # add the bias,
-    # apply the ReLU function,
-    # and finally max pool. -> hidden layer
-
-    h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
-    h_pool1 = max_pool_2x2(h_conv1)
-
-    # Second Convolutional Layer
-    # In order to build a deep network, we stack several layers of this type. The second layer will have 64 features for each 5x5 patch.
-
-    W_conv2 = weight_variable([5, 5, 32, 64])
-    b_conv2 = weight_variable([64])
-    h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
-    # h_pool2 = max_pool_2x2(h_conv2)
-    h_pool2 = h_conv2
-
-    # Now that the image size has been reduced to 7x7
-    # we add a fully-connected layer with 1024 neurons to allow processing on the entire image.
-    # We reshape the tensor from the pooling layer into a batch of vectors,
-    #  multiply by a weight matrix,
-    # add a bias,
-    # and apply a ReLU.
-
-    W_fc1 = weight_variable([32 * 9 * 64, 1024])
-    b_fc1 = bias_varibale([1024])
-
-    h_pool2_flat = tf.reshape(h_pool2, [-1, 32 * 9 * 64])
-    h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
-    ###
-    # Readout Layer
-    # Finally, we add a layer, just like for the one layer softmax regression above.
-
-    W_fc2 = weight_variable([1024, 6])
-    b_fc2 = bias_varibale([6])
-
-    y_conv = tf.matmul(h_fc1, W_fc2) + b_fc2
-
-    # [END]ADD CNN 
-
     def LSTM_Network(feature_mat, config):
         """model a LSTM Network,
           it stacks 2 LSTM layers, each layer has n_hidden=32 cells
@@ -304,7 +221,7 @@ if __name__ == "__main__":
         """
         # Exchange dim 1 and dim 0
         feature_mat = tf.transpose(feature_mat, [1, 0, 2])
-        # New feature_mat's shape: [time_steps, batch_size, n_inputs]
+        # New feature_mat's shape: [time_steps, batch_size, n_inputs] [128, batch_size, 9]
 
         # Temporarily crush the feature_mat's dimensions
         feature_mat = tf.reshape(feature_mat, [-1, config.n_inputs])  # 9
@@ -314,7 +231,7 @@ if __name__ == "__main__":
         hidden = tf.nn.relu(tf.matmul(
             feature_mat, config.W['hidden']
         ) + config.biases['hidden'])
-        # New feature_mat (hidden) shape: [time_steps*batch_size, n_hidden]
+        # New feature_mat (hidden) shape: [time_steps*batch_size, n_hidden] [128*batch_size, 32]
 
         # Split the series because the rnn cell needs time_steps features, each of shape:
         hidden = tf.split(0, config.n_steps, hidden)
@@ -328,18 +245,24 @@ if __name__ == "__main__":
 
         # Get LSTM outputs, the states are internal to the LSTM cells,they are not our attention here
         outputs, _ = tf.nn.rnn(lsmt_layers, hidden, dtype=tf.float32)
-        # outputs' shape: a list of lenght "time_step" containing tensors of shape [batch_size, n_classes]
+        # outputs' shape: a list of lenght "time_step" containing tensors of shape [batch_size, n_hidden]
 
+        print("------------------list-------------------")
+        print(outputs)
         # Get last time step's output feature for a "many to one" style classifier,
         # as in the image describing RNNs at the top of this page
-        lstm_last_output = outputs[-1]
+        lstm_last_output = outputs[-1]  # Chi lay phan tu cuoi cung voi shape: [?, 32]
+
+        print("------------------last outputs-------------------")
+        print (lstm_last_output)
 
         # Linear activation
         return tf.matmul(lstm_last_output, config.W['output']) + config.biases['output']
 
-
-    pred_Y = LSTM_Network(X, config)
+    pred_Y = LSTM_Network(X, config)   # shape[?,6]
+    print("------------------pred_Y-------------------")
     print(pred_Y)
+    exit()
 
     # Loss,train_step,evaluation
     l2 = config.lambda_loss_amount * \
