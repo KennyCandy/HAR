@@ -124,6 +124,11 @@ def LSTM_Network(feature_mat, config):
     # Split the series because the rnn cell needs time_steps features, each of shape:
     hidden = tf.split(0, config.n_steps, hidden)
     # New hidden's shape: a list of length "time_step" containing tensors of shape [batch_size, n_hidden]
+    print("--n_steps--")
+    print(config.n_steps)
+    print("--hidden--")
+    print(hidden)
+    exit()
 
     # Define LSTM cell of first hidden layer:
     lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(config.n_hidden, forget_bias=1.0)
@@ -228,7 +233,6 @@ if __name__ == "__main__":
     print(y_train)
     print(len(y_train))  # 7352
     print(len(y_train[0]))  # 6
-    exit()
 
     # -----------------------------------
     # step2: define parameters for model

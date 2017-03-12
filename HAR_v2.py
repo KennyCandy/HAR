@@ -169,11 +169,11 @@ if __name__ == "__main__":
             self.learning_rate = 0.0025
             self.lambda_loss_amount = 0.0015
             self.training_epochs = 300
-            self.batch_size = 700
+            self.batch_size = 1500
 
             # LSTM structure
             self.n_inputs = len(X_train[0][0])  # Features count is of 9: three 3D sensors features over time
-            self.n_hidden = 32  # nb of neurons inside the neural network
+            self.n_hidden = 16  # nb of neurons inside the neural network
             self.n_classes = 6  # Final output classes
             self.W = {
                 'hidden': tf.Variable(tf.random_normal([self.n_inputs, self.n_hidden])),  # [9, 32]
@@ -209,7 +209,6 @@ if __name__ == "__main__":
     Y = tf.reshape(Y, shape=[-1, 6])
     print(Y)
 
-
     # Weight Initialization
     def weight_variable(shape):
         # tra ve 1 gia tri random theo thuat toan truncated_ normal
@@ -229,7 +228,7 @@ if __name__ == "__main__":
 
     def max_pool_2x2(x):
         return tf.nn.max_pool(value=x, ksize=[1, 2, 2, 1],
-                              strides=[1, 2, 2, 1], padding='SAME', name='max_pool')
+                              strides=[1, 1, 1, 1], padding='SAME', name='max_pool')
 
     def LSTM_Network(feature_mat, config):
         """model a LSTM Network,
@@ -246,6 +245,9 @@ if __name__ == "__main__":
         b_conv1 = bias_varibale([32])
         # x_image = tf.reshape(x, shape=[-1, 28, 28, 1])
         feature_mat_image = tf.reshape(feature_mat, shape=[-1, 32, 36, 1])
+        print("----feature_mat_image-----")
+        print(feature_mat_image.get_shape())
+
         h_conv1 = tf.nn.relu(conv2d(feature_mat_image, W_conv1) + b_conv1)
         h_pool1 = max_pool_2x2(h_conv1)
 
@@ -255,10 +257,10 @@ if __name__ == "__main__":
         h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
         h_pool2 = max_pool_2x2(h_conv2)
 
-        h_pool2 = tf.reshape(h_pool2, shape=[-1, 8, 9])
+        h_pool2 = tf.reshape(h_pool2, shape=[-1, 32, 36])
         feature_mat = h_pool2
-        # print("----h_pool2-----")
-        # print(feature_mat)
+        print("----feature_mat-----")
+        print(feature_mat)
         # exit()
 
         # W_fc1 = weight_variable([8 * 9 * 1, 1024])
@@ -288,23 +290,28 @@ if __name__ == "__main__":
         # Ban dau: [0,1,2] = [batch_size, 128, 9] => [batch_size, 32, 36]
         feature_mat = tf.transpose(feature_mat, [1, 0, 2])
         # New feature_mat's shape: [time_steps, batch_size, n_inputs] [128, batch_size, 9]
+        print("----feature_mat-----")
+        print(feature_mat)
+        # exit()
 
         # Temporarily crush the feature_mat's dimensions
         feature_mat = tf.reshape(feature_mat, [-1, config.n_inputs])  # 9
-        # New feature_mat's shape: [time_steps*batch_size, n_inputs]  # 128 * batch_size
+        # New feature_mat's shape: [time_steps*batch_size, n_inputs]  # 128 * batch_size, 9
 
         # Linear activation, reshaping inputs to the LSTM's number of hidden:
         hidden = tf.nn.relu(tf.matmul(
             feature_mat, config.W['hidden']
         ) + config.biases['hidden'])
         # New feature_mat (hidden) shape: [time_steps*batch_size, n_hidden] [128*batch_size, 32]
+
         print("--n_steps--")
         print(config.n_steps)
         print("--n_steps--")
         print(hidden)
-        exit()
+        # exit()
+
         # Split the series because the rnn cell needs time_steps features, each of shape:
-        hidden = tf.split(0, config.n_steps, hidden)
+        hidden = tf.split(0, config.n_steps, hidden)  # (0, 128, [128*batch_size, 32])
         # New hidden's shape: a list of length "time_step" containing tensors of shape [batch_size, n_hidden]
 
         # Define LSTM cell of first hidden layer:
