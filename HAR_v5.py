@@ -243,8 +243,8 @@ if __name__ == "__main__":
                   : matrix  output shape [batch_size,n_classes]
         """
 
-        W_conv1 = weight_variable([5, 5, 1, 8])
-        b_conv1 = bias_varibale([8])
+        W_conv1 = weight_variable([5, 5, 1, 32])
+        b_conv1 = bias_varibale([32])
         # x_image = tf.reshape(x, shape=[-1, 28, 28, 1])
         feature_mat_image = tf.reshape(feature_mat, shape=[-1, 32, 36, 1])
         print("----feature_mat_image-----")
@@ -254,7 +254,7 @@ if __name__ == "__main__":
         h_pool1 = max_pool_2x2(h_conv1)
 
         # Second Convolutional Layer
-        W_conv2 = weight_variable([5, 5, 8, 1])
+        W_conv2 = weight_variable([5, 5, 32, 1])
         b_conv2 = weight_variable([1])
         h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
         h_pool2 = max_pool_2x2(h_conv2)
