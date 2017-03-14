@@ -43,7 +43,7 @@ if __name__ == "__main__":
     ]
 
     DATA_PATH = "data/"
-    DATASET_PATH = DATA_PATH + "UCI HAR Dataset_2/"
+    DATASET_PATH = DATA_PATH + "UCI HAR Dataset/"
     print("\n" + "Dataset is now located at: " + DATASET_PATH)
     # Preparing data set:
     TRAIN = "train/"
