@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4025a284-c59c-4a96-9463-22805d846462" name="Default" comment="Try k-size = 2.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HAR_v4_2.py" />
+    <list default="true" id="4025a284-c59c-4a96-9463-22805d846462" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/HAR_v4_3/model.ckpt.meta" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/CCC_16_32.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/CCC_32_32.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/CCC_64_32.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/CC_32_32.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/CC_64_32.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/CPC_16_32.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/CPC_32_32.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/HAR_v4_3.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/HAR_v4_3/checkpoint" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/HAR_v4_3/model.ckpt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/HAR_v4_3/time.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/main.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module123/HAR_v4_2/model.ckpt.meta" afterPath="$PROJECT_DIR$/module123/HAR_v4_2/model.ckpt.meta" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/help/HAR_v4_3.py" afterPath="$PROJECT_DIR$/help/HAR_v4_3.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/help/origin.py" afterPath="$PROJECT_DIR$/help/origin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module123/CC_16_32.py" afterPath="$PROJECT_DIR$/module123/CC_16_32.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module123/C_16_32.py" afterPath="$PROJECT_DIR$/module123/C_16_32.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module123/C_32_32.py" afterPath="$PROJECT_DIR$/module123/C_32_32.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module123/C_64_32.py" afterPath="$PROJECT_DIR$/module123/C_64_32.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module123/HAR_v4_2.py" afterPath="$PROJECT_DIR$/module123/HAR_v4_2.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module123/HAR_v4_2/model.ckpt" afterPath="$PROJECT_DIR$/module123/HAR_v4_2/model.ckpt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module123/HAR_v4_2/time.txt" afterPath="$PROJECT_DIR$/module123/HAR_v4_2/time.txt" />
     </list>
     <ignored path="HAR.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -46,7 +68,7 @@
       <file leaf-file-name="HAR_v4_2.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/HAR_v4_2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
+            <state relative-caret-position="18">
               <caret line="427" column="0" selection-start-line="427" selection-start-column="0" selection-end-line="427" selection-end-column="0" />
               <folding />
             </state>
@@ -174,8 +196,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -196,6 +216,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -418,7 +440,21 @@
       <option name="project" value="LOCAL" />
       <updated>1489924349453</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Divide into modules.">
+      <created>1490118724568</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1490118724568</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Divide into modules.">
+      <created>1490118801342</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1490118801342</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView">
@@ -494,7 +530,8 @@
     <MESSAGE value="Try k-size = 1, 4 layers in CNN." />
     <MESSAGE value="5 CNN layers." />
     <MESSAGE value="update readme.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="update readme.md" />
+    <MESSAGE value="Divide into modules." />
+    <option name="LAST_COMMIT_MESSAGE" value="Divide into modules." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -868,6 +905,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="-5410">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="0">
@@ -877,12 +920,6 @@
           <second_editor>
             <js_state />
           </second_editor>
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="-5410">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -911,7 +948,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/HAR_v4_2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
+        <state relative-caret-position="18">
           <caret line="427" column="0" selection-start-line="427" selection-start-column="0" selection-end-line="427" selection-end-column="0" />
           <folding />
         </state>

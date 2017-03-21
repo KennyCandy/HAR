@@ -285,9 +285,6 @@ if __name__ == "__main__":
         print(feature_mat)
         # exit()
 
-        tf.add_to_collection('vars', W_conv1)
-        tf.add_to_collection('vars', b_conv1)
-
         # W_fc1 = weight_variable([8 * 9 * 1, 1024])
         # b_fc1 = bias_varibale([1024])
         # h_pool2_flat = tf.reshape(h_pool2, [-1, 8 * 9 * 1])

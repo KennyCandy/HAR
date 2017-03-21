@@ -20,8 +20,8 @@ print(" File Name:")
 print(file_name)
 print("")
 # FLAG to know that whether this is traning process or not.
-FLAG = 'traina'
-N_HIDDEN_CONFIG = 16
+FLAG = 'train'
+N_HIDDEN_CONFIG = 32
 
 save_path_name =  file_name + "/model.ckpt"
 
@@ -185,7 +185,7 @@ if __name__ == "__main__":
             # Training
             self.learning_rate = 0.0025
             self.lambda_loss_amount = 0.0015
-            self.training_epochs = 3
+            self.training_epochs = 300
             self.batch_size = 1000
 
             # LSTM structure
@@ -244,7 +244,7 @@ if __name__ == "__main__":
 
     def max_pool_2x2(x):
         return tf.nn.max_pool(value=x, ksize=[1, 2, 2, 1],
-                              strides=[1, 1, 1, 1], padding='SAME', name='max_pool')
+                              strides=[1, 2, 2, 1], padding='SAME', name='max_pool')
 
     def LSTM_Network(feature_mat, config):
         """model a LSTM Network,
@@ -257,8 +257,8 @@ if __name__ == "__main__":
                   : matrix  output shape [batch_size,n_classes]
         """
 
-        W_conv1 = weight_variable([3, 3, 1, 16])
-        b_conv1 = bias_varibale([16])
+        W_conv1 = weight_variable([3, 3, 1, 32])
+        b_conv1 = bias_varibale([32])
         # x_image = tf.reshape(x, shape=[-1, 28, 28, 1])
         feature_mat_image = tf.reshape(feature_mat, shape=[-1, 32, 36, 1])
         print("----feature_mat_image-----")
@@ -268,17 +268,22 @@ if __name__ == "__main__":
         h_pool1 = max_pool_2x2(h_conv1)
 
         # Second Convolutional Layer
-        W_conv2 = weight_variable([3, 3, 16, 1])
-        b_conv2 = weight_variable([1])
+        W_conv2 = weight_variable([3, 3, 32, 128])
+        b_conv2 = weight_variable([128])
         h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
-        h_pool2 = max_pool_2x2(h_conv2)
+        h_pool2 = h_conv2
 
-        h_pool2 = tf.reshape(h_pool2, shape=[-1, 32, 36])
-        feature_mat = h_pool2
+        # Third Convolutional Layer
+        W_conv3 = weight_variable([3, 3, 128, 1])
+        b_conv3 = weight_variable([1])
+        h_conv3 = tf.nn.relu(conv2d(h_pool2, W_conv3) + b_conv3)
+        h_pool3 = h_conv3
+
+        h_pool3 = tf.reshape(h_pool3, shape=[-1, 16, 18])
+        feature_mat = h_pool3
         print("----feature_mat-----")
         print(feature_mat)
         # exit()
-
 
         # W_fc1 = weight_variable([8 * 9 * 1, 1024])
         # b_fc1 = bias_varibale([1024])
@@ -327,7 +332,7 @@ if __name__ == "__main__":
         print(hidden)
 
         # Split the series because the rnn cell needs time_steps features, each of shape:
-        hidden = tf.split(0, config.n_steps, hidden)  # (0, 128, [128*batch_size, 32])
+        hidden = tf.split(0, config.n_steps/4, hidden)  # (0, 128, [128*batch_size, 32])
         # New hidden's shape: a list of length "time_step" containing tensors of shape [batch_size, n_hidden]
 
         # Define LSTM cell of first hidden layer:

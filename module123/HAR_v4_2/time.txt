@@ -95,3 +95,25 @@ best epoch's test accuracy:0.388870030642
 Ended at 
 2017-03-22 00:42:20.027108
 ------------- 
+------------- 
+This is time 
+Started at 
+2017-03-22 01:05:53.319370
+---Save model 
+final loss:2.09079384804 
+final test accuracy:0.180522561073 
+best epoch's test accuracy:0.180522561073 
+Ended at 
+2017-03-22 01:06:57.023911
+------------- 
+------------- 
+This is time 
+Started at 
+2017-03-22 01:07:39.896582
+---Restore model 
+final loss:2.09079384804 
+final test accuracy:0.180522561073 
+best epoch's test accuracy:0.180522561073 
+Ended at 
+2017-03-22 01:07:55.457352
+------------- 
