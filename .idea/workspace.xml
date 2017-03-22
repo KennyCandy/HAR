@@ -2,30 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4025a284-c59c-4a96-9463-22805d846462" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/HAR_v4_3/model.ckpt.meta" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/CCC_16_32.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/CCC_32_32.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/CCC_64_32.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/CC_32_32.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/CC_64_32.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/CPC_16_32.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/CPC_32_32.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/HAR_v4_3.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/HAR_v4_3/checkpoint" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/HAR_v4_3/model.ckpt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/HAR_v4_3/time.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/module123/main.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module123/HAR_v4_2/model.ckpt.meta" afterPath="$PROJECT_DIR$/module123/HAR_v4_2/model.ckpt.meta" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/help/HAR_v4_3.py" afterPath="$PROJECT_DIR$/help/HAR_v4_3.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/help/origin.py" afterPath="$PROJECT_DIR$/help/origin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module123/CC_16_32.py" afterPath="$PROJECT_DIR$/module123/CC_16_32.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module123/C_16_32.py" afterPath="$PROJECT_DIR$/module123/C_16_32.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module123/C_32_32.py" afterPath="$PROJECT_DIR$/module123/C_32_32.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module123/C_64_32.py" afterPath="$PROJECT_DIR$/module123/C_64_32.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module123/HAR_v4_2.py" afterPath="$PROJECT_DIR$/module123/HAR_v4_2.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module123/HAR_v4_2/model.ckpt" afterPath="$PROJECT_DIR$/module123/HAR_v4_2/model.ckpt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module123/HAR_v4_2/time.txt" afterPath="$PROJECT_DIR$/module123/HAR_v4_2/time.txt" />
     </list>
     <ignored path="HAR.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -454,7 +431,14 @@
       <option name="project" value="LOCAL" />
       <updated>1490118801342</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Divide into modules CPC + delete tf.addtocollection()">
+      <created>1490120656534</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1490120656534</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView">
@@ -468,12 +452,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="47" y="24" width="1257" height="679" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1758509" sideWeight="0.46865672" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29432014" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8674699" sideWeight="0.50567263" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.8055077" sideWeight="0.4943274" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8055077" sideWeight="0.4943274" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.76936316" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2496124" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30120483" sideWeight="0.4886548" order="10" side_tool="false" content_ui="tabs" />
@@ -531,7 +515,8 @@
     <MESSAGE value="5 CNN layers." />
     <MESSAGE value="update readme.md" />
     <MESSAGE value="Divide into modules." />
-    <option name="LAST_COMMIT_MESSAGE" value="Divide into modules." />
+    <MESSAGE value="Divide into modules CPC + delete tf.addtocollection()" />
+    <option name="LAST_COMMIT_MESSAGE" value="Divide into modules CPC + delete tf.addtocollection()" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

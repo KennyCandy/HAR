@@ -45,3 +45,7 @@ best epoch's test accuracy:0.182219207287
 Ended at 
 2017-03-22 01:19:38.042175
 ------------- 
+------------- 
+This is time 
+Started at 
+2017-03-22 08:44:24.568372
