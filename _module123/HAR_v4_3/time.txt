@@ -1,0 +1,51 @@
+------------- 
+This is time 
+Started at 
+2017-03-22 01:11:59.225406
+---Save model 
+------------- 
+This is time 
+Started at 
+2017-03-22 01:13:06.224447
+---Save model 
+------------- 
+This is time 
+Started at 
+2017-03-22 01:13:49.830064
+---Save model 
+------------- 
+This is time 
+Started at 
+2017-03-22 01:14:36.261003
+---Save model 
+------------- 
+This is time 
+Started at 
+2017-03-22 01:17:53.685880
+---Save model 
+------------- 
+This is time 
+Started at 
+2017-03-22 01:18:44.702051
+---Save model 
+final loss:2.14897656441 
+final test accuracy:0.182219207287 
+best epoch's test accuracy:0.182219207287 
+Ended at 
+2017-03-22 01:19:10.905769
+------------- 
+------------- 
+This is time 
+Started at 
+2017-03-22 01:19:28.612343
+---Restore model 
+final loss:2.14897656441 
+final test accuracy:0.182219207287 
+best epoch's test accuracy:0.182219207287 
+Ended at 
+2017-03-22 01:19:38.042175
+------------- 
+------------- 
+This is time 
+Started at 
+2017-03-22 08:44:24.568372
